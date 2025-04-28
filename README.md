@@ -124,5 +124,3 @@ test/dao/MySQLEmployeeDAOTest.java
 - Syed Shoyeb
 - Victor Googe
 - Shan Patel
-
----
