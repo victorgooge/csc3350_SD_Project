@@ -1,4 +1,5 @@
 # CSC3350 Final Project
+
 ---
 
 Minimal Java console application to manage employee data with a MySQL database.
@@ -7,7 +8,10 @@ Minimal Java console application to manage employee data with a MySQL database.
 
 ## How to Run Locally
 
+---
+
 ### 1. Install Requirements
+
 - Java 17+ installed
 - MySQL Server running locally
 - MySQL JDBC Connector JAR (download from MySQL site)
@@ -16,59 +20,68 @@ Minimal Java console application to manage employee data with a MySQL database.
 
 ### 2. Set Up the Database
 
-#### Setup using DBeaver
-* Open DBeaver
-    - Launch DBeaver.
+#### Using DBeaver
 
-* Connect to MySQL
-    - Click Database → New Database Connection.
+1. **Open DBeaver**
+   - Launch **DBeaver**.
 
-    - Choose MySQL.
+2. **Connect to MySQL**
+   - Click **Database → New Database Connection**.
+   - Choose **MySQL**.
+   - Enter your connection details:
+     - **Host**: `localhost`
+     - **Port**: `3306`
+     - **Username**: `root`
+     - **Password**: (your MySQL password)
+   - Test the connection and finish.
 
-    - Enter your connection details:
+3. **Load the Table Script**
+   - Click **SQL Editor → Open SQL Script**.
+   - Load the file:
+     ```
+     employee_management_schema.sql
+     ```
+     (provided in the repository)
+   
+   - **OR** manually run the following SQL:
 
-    - Host: localhost
+   ```sql
+   CREATE DATABASE IF NOT EXISTS employeeData;
+   USE employeeData;
 
-    - Port: 3306
+   CREATE TABLE employees (
+       empid INT PRIMARY KEY,
+       name VARCHAR(100),
+       ssn VARCHAR(20),
+       job_title VARCHAR(100),
+       division VARCHAR(100),
+       salary DOUBLE
+   );
 
-    - Username: root
-
-    - Password: (your MySQL password)
-
-    - Test connection and finish.
-
-* Table Script:
-    - Open SQL Script.
-    - Load: ```
-            employee_management_schema.sql
-            ``` (provided in repo)
-    - OR RUN: 
-
-```sql
-CREATE DATABASE IF NOT EXISTS employeeData;
-USE employeeData;
-
-CREATE TABLE employees (
-    empid INT PRIMARY KEY,
-    name VARCHAR(100),
-    ssn VARCHAR(20),
-    job_title VARCHAR(100),
-    division VARCHAR(100),
-    salary DOUBLE
-);
-
-CREATE TABLE pay_statements (
-    statement_id INT PRIMARY KEY AUTO_INCREMENT,
-    empid INT,
-    pay_date DATE,
-    amount DOUBLE,
-    FOREIGN KEY (empid) REFERENCES employees(empid)
-);
-```
+   CREATE TABLE pay_statements (
+       statement_id INT PRIMARY KEY AUTO_INCREMENT,
+       empid INT,
+       pay_date DATE,
+       amount DOUBLE,
+       FOREIGN KEY (empid) REFERENCES employees(empid)
+   );
+   ```
 
 ---
 
-### 3. Configure the Database Connection in `MainApp.java`
+### 3. Execute the Script
+
+- Highlight the SQL script and click **Run ▶️**.
+
+DBeaver will create:
+- A new database: `employeeData`
+- Two tables: `employees` and `pay_statements`
+
+---
+
+### 4. Configure Database Connection in `MainApp.java`
+
+Update your connection string:
 
 ```java
 Connection conn = DriverManager.getConnection(
@@ -78,33 +91,33 @@ Connection conn = DriverManager.getConnection(
 );
 ```
 
-Update `"root"` and `"password"` to match your local MySQL credentials.
+Replace `"root"` and `"password"` with your actual MySQL login credentials.
 
 ---
 
-### 4. Compile the Code
+### 5. Compile the Code
 
-In terminal:
+Using terminal:
 
 ```bash
 javac -d bin src/**/*.java
 ```
 
-Or build the project if using an IDE like IntelliJ or Eclipse.
+Or build the project normally if using an IDE like IntelliJ or Eclipse.
 
 ---
 
-### 5. Run the Program
+### 6. Run the Program
 
-In terminal:
+Using terminal:
 
 ```bash
 java -cp bin MainApp
 ```
 
-Or right-click `MainApp.java` → Run.
+Or right-click `MainApp.java` → **Run**.
 
-You should see a console menu:
+You should see the console menu:
 
 ```
 === Employee Management System ===
@@ -127,14 +140,17 @@ JUnit tests are located in:
 test/dao/MySQLEmployeeDAOTest.java
 ```
 
-- Make sure JUnit 5 is installed.
-- Run tests to verify database operations.
+- Make sure **JUnit 5** is installed.
+- Run tests to verify database operations (insert, search, update, delete).
 
 ---
 
 # Contributors
+
 - Tanaka Makuvaza
 - William Shay
 - Syed Shoyeb
 - Victor Googe
 - Shan Patel
+
+---
