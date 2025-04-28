@@ -40,7 +40,8 @@ Minimal Java console application to manage employee data with a MySQL database.
 * Table Script:
     - Open SQL Script.
     - Load: employee_management_schema.sql (provided in repo)
-OR RUN: 
+    - OR RUN: 
+    
 ```sql
 CREATE DATABASE IF NOT EXISTS employeeData;
 USE employeeData;
