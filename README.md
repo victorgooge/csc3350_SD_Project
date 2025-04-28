@@ -12,20 +12,35 @@ Minimal Java console application to manage employee data with a MySQL database.
 - MySQL Server running locally
 - MySQL JDBC Connector JAR (download from MySQL site)
 
-(Optional)
-- DBeaver (recommended for easy database management)
-
 ---
 
 ### 2. Set Up the Database
 
-You have two options:
+#### Setup using DBeaver
+* Open DBeaver
+    - Launch DBeaver.
 
-#### Option A: Create Your Own Local Database
-1. Start MySQL server.
-2. Open DBeaver, MySQL Workbench, or CLI.
-3. Run this SQL script:
+* Connect to MySQL
+    - Click Database → New Database Connection.
 
+    - Choose MySQL.
+
+    - Enter your connection details:
+
+    - Host: localhost
+
+    - Port: 3306
+
+    - Username: root
+
+    - Password: (your MySQL password)
+
+    - Test connection and finish.
+
+* Table Script:
+    - Open SQL Script.
+    - Load: employee_management_schema.sql (provided in repo)
+OR RUN: 
 ```sql
 CREATE DATABASE IF NOT EXISTS employeeData;
 USE employeeData;
@@ -47,10 +62,6 @@ CREATE TABLE pay_statements (
     FOREIGN KEY (empid) REFERENCES employees(empid)
 );
 ```
-
-
-#### Option B: (Optional) Connect to a Shared Cloud Database
-> If a shared database is provided, update your database connection string in `MainApp.java` with the remote host URL, username, and password.
 
 ---
 
