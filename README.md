@@ -6,22 +6,45 @@ Minimal Java console application to manage employee data with a MySQL database.
 
 ## How to Run Locally
 
+---
+
 ### 1. Install Requirements
 
 - Java 17+ installed
 - MySQL Server running locally
 - MySQL JDBC Connector JAR (already included in `lib/`)
-- (Optional but recommended) DBeaver for easier database management
+- DBeaver (or any SQL client to set up the database)
 
 ---
 
 ### 2. Set Up the Database
 
-#### Option A: Using Provided SQL Script
+#### Using Provided SQL Script
 
 1. Open **DBeaver** (or MySQL CLI, or MySQL Workbench).
 2. Connect to your local MySQL server.
-3. Create the database manually by running:
+3. Configure the connection:
+   - **Host**: `localhost`
+   - **Port**: `3306`
+   - **Username**: `root`
+   - **Password**: `<<your password>>`  
+   (*Make sure this password matches the one you configure for the JDBC connector inside `MainApp.java`*)
+
+---
+
+#### Option A: Import Provided Script
+
+- Import the file:
+
+  `employee_management_schema.sql` (located inside `/bin/` or provided separately)
+
+This will automatically create the `employeeData` database and required tables.
+
+---
+
+#### Option B: Run Schema Commands Manually
+
+If you prefer, you can run the following commands manually inside your SQL client:
 
 ```sql
 CREATE DATABASE IF NOT EXISTS employeeData;
