@@ -75,7 +75,7 @@ Minimal Java console application to manage employee data with a MySQL database.
 DBeaver will create:
 - A new database: `employeeData`
 - Two tables: `employees` and `pay_statements`
-
+![alt text](image.png)
 ---
 
 ### 4. Configure Database Connection in `MainApp.java`
