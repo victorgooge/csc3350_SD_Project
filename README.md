@@ -4,7 +4,7 @@
 
 Minimal Java console application to manage employee data with a MySQL database.
 
-
+---
 
 ## How to Run Locally
 
