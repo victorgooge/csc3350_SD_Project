@@ -8,7 +8,6 @@ Minimal Java console application to manage employee data with a MySQL database.
 
 ## How to Run Locally
 
----
 
 ### 1. Install Requirements
 
@@ -71,7 +70,7 @@ Minimal Java console application to manage employee data with a MySQL database.
 
 ### 3. Execute the Script
 
-- Highlight the SQL script and click **Run ▶️**.
+- Highlight the SQL script and click **Run**.
 
 DBeaver will create:
 - A new database: `employeeData`
@@ -153,4 +152,3 @@ test/dao/MySQLEmployeeDAOTest.java
 - Victor Googe
 - Shan Patel
 
----
