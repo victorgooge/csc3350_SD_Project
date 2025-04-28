@@ -47,6 +47,9 @@ CREATE TABLE pay_statements (
 
 You should now see the database `employeeData` with two tables: `employees`, `pay_statements`.
 
+![alt text](bin/image.png)
+
+
 ---
 
 ### 3. Configure Database Credentials
