@@ -35,6 +35,7 @@ Minimal Java console application to manage employee data with a MySQL database.
 - Import the file:
 
   `employee_management_schema.sql` (located inside `/bin/` or provided separately)
+  Download here: [text](bin/employee_management_schema.sql)
 
 This will automatically create the `employeeData` database and required tables.
 
