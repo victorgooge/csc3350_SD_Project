@@ -6,8 +6,6 @@ Minimal Java console application to manage employee data with a MySQL database.
 
 ## How to Run Locally
 
----
-
 ### 1. Install Requirements
 
 - Java 17+ installed
