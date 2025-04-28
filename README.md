@@ -118,25 +118,6 @@ test/dao/MySQLEmployeeDAOTest.java
 
 ---
 
-# Folder Structure
-
-```plaintext
-src/
- ├── dao/
- ├── interfaces/
- ├── models/
- ├── reports/
- ├── ui/
- └── MainApp.java
-lib/
- └── mysql-connector-java-8.x.x.jar
-test/
- └── dao/
-     └── MySQLEmployeeDAOTest.java
-```
-
----
-
 # Contributors
 - Tanaka Makuvaza
 - William Shay
