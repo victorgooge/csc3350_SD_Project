@@ -1,4 +1,4 @@
-package models;
+package src.models;
 
 public class Employee {
     private int empId;
@@ -35,4 +35,15 @@ public class Employee {
 
     public double getSalary() { return salary; }
     public void setSalary(double salary) { this.salary = salary; }
+
+
+    @Override
+    public String toString() {
+        return "Employee ID: " + empId +
+            ", Name: " + name +
+            ", SSN: " + ssn +
+            ", Job Title: " + jobTitle +
+            ", Division: " + division +
+            ", Salary: $" + salary;
+    }
 }

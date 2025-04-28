@@ -1,9 +1,9 @@
-package ui;
+package src.ui;
 
-import interfaces.UserInterface;
-import interfaces.EmployeeDAO;
-import interfaces.ReportGenerator;
-import models.Employee;
+import src.interfaces.EmployeeDAO;
+import src.interfaces.ReportGenerator;
+import src.interfaces.UserInterface;
+import src.models.Employee;
 
 import java.util.Scanner;
 

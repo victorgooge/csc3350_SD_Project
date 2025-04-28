@@ -1,7 +1,7 @@
-package reports;
+package src.reports;
 
-import interfaces.ReportGenerator;
-import interfaces.EmployeeDAO;
+import src.interfaces.EmployeeDAO;
+import src.interfaces.ReportGenerator;
 
 public class EmployeeReportGenerator implements ReportGenerator {
     private EmployeeDAO employeeDAO;

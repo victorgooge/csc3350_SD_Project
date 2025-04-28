@@ -76,7 +76,7 @@ DBeaver will create:
 - A new database: `employeeData`
 - Two tables: `employees` and `pay_statements`
 
-![alt text](image.png)
+![alt text](bin/image.png)
 
 ---
 

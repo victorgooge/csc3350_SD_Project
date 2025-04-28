@@ -1,8 +1,8 @@
-package dao;
+package src.dao;
 
-import interfaces.EmployeeDAO;
-import models.Employee;
-import models.PayStatement;
+import src.interfaces.EmployeeDAO;
+import src.models.Employee;
+import src.models.PayStatement;
 
 import java.sql.*;
 import java.util.ArrayList;

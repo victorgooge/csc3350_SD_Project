@@ -1,4 +1,4 @@
-package models;
+package src.models;
 
 public class PayStatement {
     private int statementId;
@@ -24,4 +24,13 @@ public class PayStatement {
 
     public double getAmount() { return amount; }
     public void setAmount(double amount) { this.amount = amount; }
+
+
+    @Override
+    public String toString() {
+        return "Statement ID: " + statementId +
+            ", Employee ID: " + empId +
+            ", Pay Date: " + payDate +
+            ", Amount: $" + amount;
+    }
 }

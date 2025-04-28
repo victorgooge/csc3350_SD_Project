@@ -1,7 +1,9 @@
-package dao;
+package src.test;
 
-import models.Employee;
 import org.junit.jupiter.api.*;
+
+import src.models.Employee;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

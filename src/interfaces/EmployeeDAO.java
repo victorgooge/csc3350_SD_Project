@@ -1,8 +1,9 @@
-package interfaces;
+package src.interfaces;
 
 import java.util.List;
-import models.Employee;
-import models.PayStatement;
+
+import src.models.Employee;
+import src.models.PayStatement;
 
 public interface EmployeeDAO {
     void insertEmployee(Employee employee);

@@ -1,6 +1,7 @@
-import dao.MySQLEmployeeDAO;
-import reports.EmployeeReportGenerator;
-import ui.ConsoleUI;
+package src;
+import src.dao.MySQLEmployeeDAO;
+import src.reports.EmployeeReportGenerator;
+import src.ui.ConsoleUI;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +12,7 @@ public class MainApp {
             Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/employeeData", 
                 "root", 
-                "password"
+                "Lilly442000#"
             );
             var employeeDAO = new MySQLEmployeeDAO(conn);
             var reportGenerator = new EmployeeReportGenerator(employeeDAO);
