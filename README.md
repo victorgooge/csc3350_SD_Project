@@ -1,124 +1,95 @@
 # CSC3350 Final Project
 
-
-
 Minimal Java console application to manage employee data with a MySQL database.
 
 ---
 
 ## How to Run Locally
 
+---
 
 ### 1. Install Requirements
 
 - Java 17+ installed
 - MySQL Server running locally
-- MySQL JDBC Connector JAR (download from MySQL site)
+- MySQL JDBC Connector JAR (already included in `lib/`)
+- (Optional but recommended) DBeaver for easier database management
 
 ---
 
 ### 2. Set Up the Database
 
-#### Using DBeaver
+#### Option A: Using Provided SQL Script
 
-1. **Open DBeaver**
-   - Launch **DBeaver**.
+1. Open **DBeaver** (or MySQL CLI, or MySQL Workbench).
+2. Connect to your local MySQL server.
+3. Create the database manually by running:
 
-2. **Connect to MySQL**
-   - Click **Database → New Database Connection**.
-   - Choose **MySQL**.
-   - Enter your connection details:
-     - **Host**: `localhost`
-     - **Port**: `3306`
-     - **Username**: `root`
-     - **Password**: (your MySQL password)
-   - Test the connection and finish.
+```sql
+CREATE DATABASE IF NOT EXISTS employeeData;
+USE employeeData;
 
-3. **Load the Table Script**
-   - Click **SQL Editor → Open SQL Script**.
-   - Load the file:
-     ```
-     employee_management_schema.sql
-     ```
-     (provided in the repository)
-   
-   - **OR** manually run the following SQL:
+CREATE TABLE employees (
+    empid INT PRIMARY KEY,
+    name VARCHAR(100),
+    ssn VARCHAR(20),
+    job_title VARCHAR(100),
+    division VARCHAR(100),
+    salary DOUBLE
+);
 
-   ```sql
-   CREATE DATABASE IF NOT EXISTS employeeData;
-   USE employeeData;
+CREATE TABLE pay_statements (
+    statement_id INT PRIMARY KEY AUTO_INCREMENT,
+    empid INT,
+    pay_date DATE,
+    amount DOUBLE,
+    FOREIGN KEY (empid) REFERENCES employees(empid)
+);
+```
 
-   CREATE TABLE employees (
-       empid INT PRIMARY KEY,
-       name VARCHAR(100),
-       ssn VARCHAR(20),
-       job_title VARCHAR(100),
-       division VARCHAR(100),
-       salary DOUBLE
-   );
-
-   CREATE TABLE pay_statements (
-       statement_id INT PRIMARY KEY AUTO_INCREMENT,
-       empid INT,
-       pay_date DATE,
-       amount DOUBLE,
-       FOREIGN KEY (empid) REFERENCES employees(empid)
-   );
-   ```
+You should now see the database `employeeData` with two tables: `employees`, `pay_statements`.
 
 ---
 
-### 3. Execute the Script
+### 3. Configure Database Credentials
 
-- Highlight the SQL script and click **Run**.
-
-DBeaver will create:
-- A new database: `employeeData`
-- Two tables: `employees` and `pay_statements`
-
-![alt text](bin/image.png)
-
----
-
-### 4. Configure Database Connection in `MainApp.java`
-
-Update your connection string:
+In `src/MainApp.java`, make sure your connection string matches your local MySQL credentials:
 
 ```java
 Connection conn = DriverManager.getConnection(
     "jdbc:mysql://localhost:3306/employeeData",
-    "root", // your username
-    "password" // your password
+    "root",        // your MySQL username
+    "yourpassword" // your MySQL password
 );
 ```
 
-Replace `"root"` and `"password"` with your actual MySQL login credentials.
+Update the `"root"` and `"yourpassword"` fields as necessary.
 
 ---
 
-### 5. Compile the Code
+### 4. Compile the Project
 
-Using terminal:
+In the project root (`csc3350_SD_Project/`), open a terminal or PowerShell and run:
 
 ```bash
-javac -d bin src/**/*.java
+javac -cp ".;lib/mysql-connector-j-9.3.0.jar" -d bin src/MainApp.java src/dao/*.java src/interfaces/*.java src/models/*.java src/reports/*.java src/ui/*.java
 ```
 
-Or build the project normally if using an IDE like IntelliJ or Eclipse.
+This compiles all `.java` files into the `bin/` folder.
+
+**Note**: Make sure the `bin/` and `lib/` folders already exist.
 
 ---
 
-### 6. Run the Program
+### 5. Run the Program
 
-Using terminal:
+After compiling, run the program:
 
 ```bash
-java -cp bin MainApp
+java -cp ".;bin;lib/mysql-connector-j-9.3.0.jar" MainApp
 ```
 
-Or right-click `MainApp.java` → **Run**.
-
-You should see the console menu:
+You should see the Employee Management System menu:
 
 ```
 === Employee Management System ===
@@ -131,18 +102,20 @@ You should see the console menu:
 Enter your choice:
 ```
 
+You can now fully use the application!
+
 ---
 
 ## Running Unit Tests
 
-JUnit tests are located in:
+JUnit test file is located at:
 
 ```plaintext
-test/dao/MySQLEmployeeDAOTest.java
+src/test/MySQLEmployeeDAOTest.java
 ```
 
-- Make sure **JUnit 5** is installed.
-- Run tests to verify database operations (insert, search, update, delete).
+- You can use JUnit 5 to run the tests.
+- Make sure your `test/` classes have access to the JDBC connector (`lib/mysql-connector-j-9.3.0.jar`) during testing.
 
 ---
 
@@ -153,4 +126,3 @@ test/dao/MySQLEmployeeDAOTest.java
 - Syed Shoyeb
 - Victor Googe
 - Shan Patel
-
