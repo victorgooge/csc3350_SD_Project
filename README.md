@@ -41,7 +41,7 @@ Minimal Java console application to manage employee data with a MySQL database.
     - Open SQL Script.
     - Load: ```
             employee_management_schema.sql
-            ```(provided in repo)
+            ``` (provided in repo)
     - OR RUN: 
 
 ```sql
