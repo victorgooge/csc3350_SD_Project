@@ -1,15 +1,12 @@
-package ui;
+package src.ui;
 
-import interfaces.EmployeeDAO;
-import interfaces.ReportGenerator;
-import interfaces.UserInterface;
-import models.Employee;
+import src.interfaces.EmployeeDAO;
+import src.interfaces.ReportGenerator;
+import src.interfaces.UserInterface;
+import src.models.Employee;
 
 import java.util.Scanner;
 
-/**
- * console-based user interface for the employee management system.
- */
 public class ConsoleUI implements UserInterface {
     private EmployeeDAO employeeDAO;
     private ReportGenerator reportGenerator;
