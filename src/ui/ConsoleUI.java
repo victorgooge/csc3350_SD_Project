@@ -1,12 +1,15 @@
-package src.ui;
+package ui;
 
-import src.interfaces.EmployeeDAO;
-import src.interfaces.ReportGenerator;
-import src.interfaces.UserInterface;
-import src.models.Employee;
+import interfaces.EmployeeDAO;
+import interfaces.ReportGenerator;
+import interfaces.UserInterface;
+import models.Employee;
 
 import java.util.Scanner;
 
+/**
+ * console-based user interface for the employee management system.
+ */
 public class ConsoleUI implements UserInterface {
     private EmployeeDAO employeeDAO;
     private ReportGenerator reportGenerator;
@@ -31,7 +34,7 @@ public class ConsoleUI implements UserInterface {
             System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
-            int choice = scanner.nextInt();
+            int choice = getValidIntInput();
             scanner.nextLine();
 
             switch (choice) {
@@ -46,34 +49,35 @@ public class ConsoleUI implements UserInterface {
         }
     }
 
+    // insert new employee
     private void insertEmployee() {
         System.out.println("Enter Employee ID:");
-        int id = scanner.nextInt();
+        int id = getValidIntInput();
         scanner.nextLine();
-        System.out.println("Enter Name:");
-        String name = scanner.nextLine();
-        System.out.println("Enter SSN (no dashes):");
-        String ssn = scanner.nextLine();
-        System.out.println("Enter Job Title:");
-        String job = scanner.nextLine();
-        System.out.println("Enter Division:");
-        String div = scanner.nextLine();
+
+        String name = getNonEmptyStringInput("Enter Name:");
+        String ssn = getNonEmptyStringInput("Enter SSN (no dashes):");
+        String job = getNonEmptyStringInput("Enter Job Title:");
+        String div = getNonEmptyStringInput("Enter Division:");
+
         System.out.println("Enter Salary:");
-        double salary = scanner.nextDouble();
+        double salary = getValidDoubleInput();
 
         Employee emp = new Employee(id, name, ssn, job, div, salary);
         employeeDAO.insertEmployee(emp);
         System.out.println("Employee added successfully!");
     }
 
+    // search for an employee
     private void searchEmployee() {
         System.out.println("Search by: 1. ID 2. Name 3. SSN");
-        int option = scanner.nextInt();
+        int option = getValidIntInput();
         scanner.nextLine();
         Employee result = null;
+
         if (option == 1) {
             System.out.println("Enter Employee ID:");
-            result = employeeDAO.searchEmployeeById(scanner.nextInt());
+            result = employeeDAO.searchEmployeeById(getValidIntInput());
         } else if (option == 2) {
             System.out.println("Enter Name:");
             result = employeeDAO.searchEmployeeByName(scanner.nextLine());
@@ -89,10 +93,12 @@ public class ConsoleUI implements UserInterface {
         }
     }
 
+    // update employee information
     private void updateEmployee() {
         System.out.println("Enter Employee ID to Update:");
-        int id = scanner.nextInt();
+        int id = getValidIntInput();
         scanner.nextLine();
+
         Employee emp = employeeDAO.searchEmployeeById(id);
         if (emp == null) {
             System.out.println("Employee not found.");
@@ -100,40 +106,87 @@ public class ConsoleUI implements UserInterface {
         }
 
         System.out.println("Enter New Name (current: " + emp.getName() + "):");
-        emp.setName(scanner.nextLine());
+        String newName = scanner.nextLine();
+        if (!newName.trim().isEmpty()) emp.setName(newName);
+
         System.out.println("Enter New SSN (current: " + emp.getSsn() + "):");
-        emp.setSsn(scanner.nextLine());
+        String newSsn = scanner.nextLine();
+        if (!newSsn.trim().isEmpty()) emp.setSsn(newSsn);
+
         System.out.println("Enter New Job Title (current: " + emp.getJobTitle() + "):");
-        emp.setJobTitle(scanner.nextLine());
+        String newJob = scanner.nextLine();
+        if (!newJob.trim().isEmpty()) emp.setJobTitle(newJob);
+
         System.out.println("Enter New Division (current: " + emp.getDivision() + "):");
-        emp.setDivision(scanner.nextLine());
+        String newDiv = scanner.nextLine();
+        if (!newDiv.trim().isEmpty()) emp.setDivision(newDiv);
+
         System.out.println("Enter New Salary (current: " + emp.getSalary() + "):");
-        emp.setSalary(scanner.nextDouble());
+        String salaryInput = scanner.nextLine();
+        if (!salaryInput.trim().isEmpty()) {
+            emp.setSalary(Double.parseDouble(salaryInput));
+        }
 
         employeeDAO.updateEmployee(emp);
         System.out.println("Employee updated successfully!");
     }
 
+    // update salaries for employees within a salary range
     private void updateSalaries() {
         System.out.println("Enter Minimum Salary:");
-        double min = scanner.nextDouble();
+        double min = getValidDoubleInput();
+
         System.out.println("Enter Maximum Salary:");
-        double max = scanner.nextDouble();
+        double max = getValidDoubleInput();
+
         System.out.println("Enter Percentage Increase:");
-        double percent = scanner.nextDouble();
+        double percent = getValidDoubleInput();
 
         employeeDAO.updateSalaryByRange(min, max, percent);
         System.out.println("Salaries updated successfully!");
     }
 
+    // generate different reports
     private void generateReports() {
         System.out.println("Choose Report: 1. Full Employee Info 2. Total Pay by Job Title 3. Total Pay by Division");
-        int option = scanner.nextInt();
+        int option = getValidIntInput();
+
         switch (option) {
             case 1 -> reportGenerator.generateFullEmployeeReport();
             case 2 -> reportGenerator.generateTotalPayByJobTitle();
             case 3 -> reportGenerator.generateTotalPayByDivision();
             default -> System.out.println("Invalid choice.");
         }
+    }
+
+    // helper: get valid integer input
+    private int getValidIntInput() {
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input. Please enter a valid integer:");
+            scanner.next();
+        }
+        return scanner.nextInt();
+    }
+
+    // helper: get valid double input
+    private double getValidDoubleInput() {
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Invalid input. Please enter a valid number:");
+            scanner.next();
+        }
+        return scanner.nextDouble();
+    }
+
+    // helper: get non-empty string input
+    private String getNonEmptyStringInput(String prompt) {
+        String input;
+        do {
+            System.out.println(prompt);
+            input = scanner.nextLine().trim();
+            if (input.isEmpty()) {
+                System.out.println("Input cannot be empty. Please try again.");
+            }
+        } while (input.isEmpty());
+        return input;
     }
 }
